@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}地圖{% endblock %}
+{% block css %}
+    <style>
+        #map{
+            height: 540px;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 23.4644239, lng: 120.4363048},
+          zoom: 8
+        });
+        /*
+        loadMarkers();
+        function loadMarkers(){
+            var pingreen = "008000";
+            var pinorange = "FFA500";
+            var pinred = "DC143c";
+            {% for location in data %}
+                var point = new google.maps.LatLng({{location.storeLat}},{{location.storeLong}});
+                var infowindow = new google.maps.InfoWindow({
+                    maxWidth: 200
+                });
+                var marker = new google.maps.Marker({
+                    position: point,
+                    map: map,
+                    {% if location.storeRatio >= 0.9 %}
+                        icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"+ pingreen
+                    {% elif location.storeRatio >= 0.5 and location.storeRatio < 0.9 %}
+                        icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"+ pinorange
+                    {% elif location.storeRatio < 0.5 %}
+                        icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"+ pinred
+                    {% endif %}
+
+                });
+                google.maps.event.addListener(marker, 'click', function(){
+                    infowindow.setContent('<div>'+
+                    '<h5>{{location.storeName}}</h5>'+
+                    '<a href = "{% url 'singleStore_detail' pk=location.iStoreName %}">店家資訊</a>'+
+                '</div>');
+                    infowindow.open(map, this);
+                });
+
+            {% endfor %}
+        }
+        */
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu6jpaZxq12UUMNE3b0iaIbrCoza1FCkE&callback=initMap"
+    async defer></script>
+
+    <div id = 'map'></div>
+{% endblock %}
