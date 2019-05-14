@@ -3,13 +3,14 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from login.models import RegisterForm
 from login.models import UserForm
+from member.models import member
 
 
 
 # Create your views here.
 def login(request):
     if request.session.get('is_login', None):
-        return HttpResponseRedirect('/helloMap/')
+        return HttpResponseRedirect('/map/')
     if request.method == "POST":
         login_form = UserForm(request.POST)
         message = "請檢查填寫的內容!"
@@ -22,7 +23,7 @@ def login(request):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.memberId
                     request.session['user_name'] = user.memberEmail
-                    return HttpResponseRedirect('/helloMap/')
+                    return HttpResponseRedirect('/map/')
                 else:
                     message = "密碼不正確"
             except:
@@ -34,7 +35,7 @@ def login(request):
 
 def register(request):
     if request.session.get('is_login', None):
-        return HttpResponseRedirect("/helloMap/")
+        return HttpResponseRedirect("/map/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
         message = "請檢察填寫的內容!"
@@ -55,9 +56,7 @@ def register(request):
             new_user.memberEmail = username
             new_user.memberPassword = password1
             new_user.memberName = name
-            new_user.redFlag = None
-            new_user.orangeFlag = None
-            new_user.idLocation = None
+            new_user.dailyConsum = None
             new_user.save()
             return HttpResponseRedirect('/login/')
     register_form = RegisterForm()
@@ -66,6 +65,6 @@ def register(request):
 
 def logout(request):
     if not request.session.get('is_login', None):
-        return HttpResponseRedirect('/helloMap/')
+        return HttpResponseRedirect('/map/')
     request.session.flush()
-    return HttpResponseRedirect('/helloMap/')
+    return HttpResponseRedirect('/map/')

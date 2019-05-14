@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'member',
     'login',
     'map',
-    
+    'tripPlan',
+    'carbon',
 ]
 
 MIDDLEWARE = [
@@ -80,8 +81,15 @@ WSGI_APPLICATION = 'taoyuan201905.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_taoyuan201905',
+        'USER' : 'root',
+        'PASSWORD' : '',
+        'HOST' : '127.0.0.1',
+        'PORT' : '3306',
+        'OPTIONS' : {
+            "init_command":"SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
 }
 
@@ -124,11 +132,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ALLOWED_HOSTS = ['*']
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

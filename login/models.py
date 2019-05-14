@@ -13,3 +13,4 @@ class RegisterForm(forms.Form):
     password2 = forms.CharField(label="確認密碼", max_length=256,
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     name = forms.CharField(label = "暱稱", max_length=128, widget = forms.TextInput(attrs={'class':'form-control'}))
+    

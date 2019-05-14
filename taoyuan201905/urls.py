@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.contrib.auth import views
 from member.views import member
 from login.views import login
 from login.views import register
+from login.views import logout
 from map.views import map
+from carbon.views import Carbon
+from carbon.views import submitCarbon
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +32,7 @@ urlpatterns = [
     path('login/', login),
     path('register/', register),
     path('map/', map),
+    path('logout/' , logout),
+    path('carbon/', Carbon),
+    path('carbon1/', submitCarbon),
 ]

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}碳足跡{% endblock %}
+{% block css %}
+    
+<style>
+    .wid_left{
+        width: 50%;
+        position: absolute;left: 0px;
+    }
+    .wid_right{
+        width: 50%;
+        position: absolute;right: 0px;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+{% if request.session.is_login %}
+<div class="wid_left">
+    <form method="GET" action=".">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="search_goods" placeholder="輸入商品..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    {% else %}
+        <script>alert("請先登入");</script>
+    {% endif %}
+    </form>
+
+
+
+<hr>
+<div class="row">
+    <form action="/carbon1/" method="POST">
+        <ul>
+            {% csrf_token %}
+            {% for goods in qs %}
+            <li>
+                {{ goods.carbonName }}
+                ，請輸入購買數量:<input id="{{ goods.carbonId }}" type="value" name="id" value="0"></input><input type="hidden" name="corId" value="{{ goods.carbonId }}">
+                <br>
+                {{ goods.carbonUnit }}，碳足跡:{{ goods.carbonFootprint }}
+            </li>
+            <hr>
+            {% endfor %}
+            {% if qs is not None %}
+            <button type="submit">送出</button>
+            {% endif %}
+            
+        </ul>
+    </form>
+</div>
+</div>
+
+<div class="wid_right">
+    <p>今日累積: {{ memb.dailyConsum }}</p>
+    <p>上週累積: </p>
+
+</div>
+{% endblock %}
