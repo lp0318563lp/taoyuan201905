@@ -88,7 +88,7 @@ python-binance==0.7.0
 python-dateutil==2.7.3
 pytz==2018.5
 pywinpty==0.5.4
-PyYAML==3.13
+PyYAML==5.4
 pyzmq==17.0.0
 query-string==1.0.2
 ratelim==0.1.6
